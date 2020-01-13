@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="<?=base_url()?>assets/leaflet/leaflet.css" rel="stylesheet">
         <script src="<?=base_url()?>assets/leaflet/leaflet.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.css" />
-        <script src="https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.js"></script>
+        <link rel="stylesheet" href="<?=base_url()?>assets/css/leaflet-search.css" />
+        <script src="<?=base_url()?>assets/js/leaflet-search.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <style>
             html {
@@ -74,19 +74,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     attribution: mbAttr
                 }),
                 streets = L.tileLayer(mbUrl, {
-                    id: 'mapbox/streets-v11',
+                    id: 'mapbox/streets-v11', 
                     attribution: mbAttr
                 });
 
-            var map = L.map('mapid').setView([0.5090506, 101.4449926], 13.5);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+            //Create base maps for using satellite and streets tile layers for the base layers
+            var map = L.map('mapid', {
+                center: [0.5090506, 101.4449926],
+                zoom: 15,
+                layers: [streets, satellite]
+            });
 
             //Create group layer for the polygon
             var futsalFeatureGroup = L.layerGroup().addTo(map).on("click", groupClick);
             var futsalPolygon;
             var futsal_id;
+
+            //Add dictionary to store all the location and futsal court name
+            var futsal_data = [];
+            var geojsonFeature = [];
 
             //Function to get the polygon id from the event click
             function groupClick(event) {
@@ -104,17 +110,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             L.control.layers(baseLayers, overlays).addTo(map);
 
-            L.control.search({
-                    layer: futsalFeatureGroup,
-                    initial: false,
-                    propertyName: 'name' // Specify which property is searched into.
-                })
-                .addTo(map);
+            var markerLayer = new L.LayerGroup();
+            map.addLayer(markerLayer);
 
+            var controlSearch = new L.Control.Search({
+                position:'topright',		
+                layer: markerLayer,
+                initial: false,
+                zoom: 20,
+                marker: false
+            });
+                   
             // Using ajax to get the data from the db
             $.getJSON("<?=base_url()?>index.php/Home/futsal_json", function(result) {
                 $.each(result, function(i, field) {
-                    // alert(result[i].Nama);
+                    futsal_data.push({
+                        "loc" : [result[i].g001, result[i].g000],
+                        "title" : result[i].Nama
+                    });
                     var latlngs = [
                         [
                             [parseFloat(result[i].g001), parseFloat(result[i].g000)],
@@ -128,7 +141,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         .bindPopup("<center><strong>Futsal Court Info</strong></center><hr>" + result[i].Foto + "<center><strong>" + result[i].Nama + "</strong></center><i class='fa fa-map-marker'></i>" + result[i].alamat + "<br><a href='<?=base_url()?>index.php/Home/detail/" + result[i].Futsal_id + "'>Detail</a>");
                     futsalPolygon.id = result[i].Futsal_id;
                 });
+                for (i in futsal_data){
+                    var title = futsal_data[i].title,	//value searched
+                        loc = futsal_data[i].loc,		//position found
+                        marker = new L.Marker(new L.latLng(loc), {title: title} );//se property searched                    
+                    markerLayer.addLayer(marker);                      
+                }
+
+                map.addControl( controlSearch );
             });
+            
         </script>
     </body>
 </html> 
