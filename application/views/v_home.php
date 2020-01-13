@@ -64,15 +64,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script type="text/javascript">
             // Leaflet
             //Add the streetmaps base layers
-            var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                id: 'MapID',
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
-            });
+            var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+            var satellite = L.tileLayer(mbUrl, {
+                    id: 'mapbox/satellite-v9',
+                    attribution: mbAttr
+                }),
+                streets = L.tileLayer(mbUrl, {
+                    id: 'mapbox/streets-v11',
+                    attribution: mbAttr
+                });
 
             var map = L.map('mapid').setView([0.5090506, 101.4449926], 13.5);
-
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
@@ -88,6 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
 
             var baseLayers = {
+                "Satellite": satellite,
                 "Streets": streets
             };
 
@@ -96,13 +103,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             };
 
             L.control.layers(baseLayers, overlays).addTo(map);
-            
+
             L.control.search({
-                layer: futsalFeatureGroup,
-                initial: false,
-                propertyName: 'name' // Specify which property is searched into.
-            })
-            .addTo(map);
+                    layer: futsalFeatureGroup,
+                    initial: false,
+                    propertyName: 'name' // Specify which property is searched into.
+                })
+                .addTo(map);
+
             // Using ajax to get the data from the db
             $.getJSON("<?=base_url()?>index.php/Home/futsal_json", function(result) {
                 $.each(result, function(i, field) {
@@ -117,12 +125,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         ]
                     ]
                     futsalPolygon = L.polygon(latlngs).addTo(futsalFeatureGroup)
-                        // .bindPopup("<center><strong>Futsal Court Info</strong></center><hr>" + result[i].Foto + "<center><strong>" + result[i].Nama + "</strong></center><i class='fa fa-map-marker'></i>" + result[i].alamat + "<br><a href='<?=base_url()?>index.php/Home/detail/" + result[i].Futsal_id + "'>Detail</a>");
-                        .bindPopup();
+                        .bindPopup("<center><strong>Futsal Court Info</strong></center><hr>" + result[i].Foto + "<center><strong>" + result[i].Nama + "</strong></center><i class='fa fa-map-marker'></i>" + result[i].alamat + "<br><a href='<?=base_url()?>index.php/Home/detail/" + result[i].Futsal_id + "'>Detail</a>");
                     futsalPolygon.id = result[i].Futsal_id;
                 });
             });
         </script>
     </body>
-
-    </html>
+</html> 
