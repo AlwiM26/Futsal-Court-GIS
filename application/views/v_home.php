@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>FUTSAL COURT FINDER</title>
+        <title>FUTSAL</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="<?=base_url()?>assets/leaflet/leaflet.css" rel="stylesheet">
         <script src="<?=base_url()?>assets/leaflet/leaflet.js"></script>
