@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             #adminBtn{
                 text-decoration: none;
                 color: black;
+                position: absolute;
+                margin-top: -25px;
             }
         </style>
     </head>
@@ -58,13 +60,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
         <main id="page-wrap">
             <div class="container">
-                <center>
-                    <h1>FUTSAL COURT FINDER</h1></center>
+                <div id="head">
+                    <center><h1>FUTSAL COURT FINDER</h1></center>
+                    <strong><a href="<?=base_url()?>index.php/Login" id="adminBtn"> Admin</a></strong>                    
+                </div>
                 <!-- Content -->
                 <div id="mapid"></div>
                 <div id="footer"></div>
                 <!-- End Content -->
-                <strong><a href="<?=base_url()?>index.php/Login" id="adminBtn"> Admin</a></strong>
+                
             </div>
         </main>
         <!-- <script src="<?=base_url()?>assets/js/offcanvas.js"></script> -->

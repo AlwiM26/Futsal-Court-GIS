@@ -1,4 +1,9 @@
 <?php $this->load->view('templates/header');?>
+<style>
+	img{
+		width: 65%;
+	}
+</style>
 <div class="row" style="margin-bottom: 20px">
             <div class="col-md-4">
                 <h2>Info futsal Read</h2>
