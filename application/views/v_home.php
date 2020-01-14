@@ -45,6 +45,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 margin height: 150px;
                 background: black;
             }
+            img{
+                width: 100%;
+            }
+            #adminBtn{
+                text-decoration: none;
+                color: black;
+            }
         </style>
     </head>
 
@@ -57,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div id="mapid"></div>
                 <div id="footer"></div>
                 <!-- End Content -->
-
+                <strong><a href="<?=base_url()?>index.php/Login" id="adminBtn"> Admin</a></strong>
             </div>
         </main>
         <!-- <script src="<?=base_url()?>assets/js/offcanvas.js"></script> -->
