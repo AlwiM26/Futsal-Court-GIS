@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div id="mapid"></div>
                 <div id="footer"></div>
                 <!-- End Content -->
-
+                <a href="<?=base_url()?>index.php/Login"> Login</a>
             </div>
         </main>
         <!-- <script src="<?=base_url()?>assets/js/offcanvas.js"></script> -->
