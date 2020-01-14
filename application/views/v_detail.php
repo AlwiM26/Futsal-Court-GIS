@@ -27,13 +27,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     img{
         object-fit: cover;
         height: -webkit-fill-available;
-        width: -webkit-fill-available;
+        width: 100%;
     }
     #top_content{
         height: 550px;
+        margin-top: 20px;
+    }
+    #back_button{
+        height: 70px;
+        width: 70px;
+        position: absolute;
     }
 </style>
 <body>
+    <a href="<?=base_url()?>index.php/Detail/back_home"><img src="<?=base_url()?>assets/images/back.png" id="back_button"></a>
     <Center><Strong><h1 id="judul"><?=$nama?></h1></Strong></Center>
     <div id="top_content"> 
         <div id="left_c" style="width:50%; float:left;">
