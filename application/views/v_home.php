@@ -90,6 +90,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var futsalPolygon;
             var futsal_id;
 
+            var futsalIcon = L.icon({
+                iconUrl: '<?=base_url()?>assets/images/futsalIcon.png',
+
+                iconSize:     [38, 95], // size of the icon
+                shadowSize:   [50, 64], // size of the shadow
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
             //Add dictionary to store all the location and futsal court name
             var futsal_data = [];
             var geojsonFeature = [];
@@ -99,22 +109,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 futsal_id = "Futsal " + event.layer.id;
             }
 
-            var baseLayers = {
-                "Satellite": satellite,
-                "Streets": streets
-            };
-
-            var overlays = {
-                "Futsal": futsalFeatureGroup
-            };
-
-            L.control.layers(baseLayers, overlays).addTo(map);
-
             var markerLayer = new L.LayerGroup();
             map.addLayer(markerLayer);
 
             var controlSearch = new L.Control.Search({
-                position:'topright',		
+                position:'topleft',		
                 layer: markerLayer,
                 initial: false,
                 zoom: 20,
@@ -144,13 +143,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 for (i in futsal_data){
                     var title = futsal_data[i].title,	//value searched
                         loc = futsal_data[i].loc,		//position found
-                        marker = new L.Marker(new L.latLng(loc), {title: title} );//se property searched                    
+                        marker = new L.Marker(new L.latLng(loc), {title: title} ).addTo(futsalFeatureGroup);//se property searched                    
                     markerLayer.addLayer(marker);                      
                 }
 
                 map.addControl( controlSearch );
             });
-            
+
+            var baseLayers = {
+                "Satellite": satellite,
+                "Streets": streets
+            };
+
+            var overlays = {
+                "Futsal": futsalFeatureGroup
+            };
+
+            L.control.layers(baseLayers, overlays).addTo(map);            
+
         </script>
     </body>
 </html> 
