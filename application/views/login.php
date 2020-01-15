@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<style>
+    #bg{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+</style>
 <head>
 
     <meta charset="utf-8">
@@ -57,8 +64,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    <img src="<?=base_url()?>assets/images/bg.svg" id="bg">
+    </div>
     <!-- jQuery -->
     <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
 

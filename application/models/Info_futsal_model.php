@@ -21,7 +21,7 @@ class Info_futsal_model extends CI_Model
         $this->datatables->from('info_futsal');
         //add this line for join
         //$this->datatables->join('table2', 'info_futsal.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('index.php/info_futsal/read/$1'),'Read')." | ".anchor(site_url('index.php/info_futsal/update/$1'),'Update')." | ".anchor(site_url('index.php/info_futsal/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'Futsal_id');
+        $this->datatables->add_column('action', anchor(site_url('index.php/info_futsal/read/$1'),'Detail')." | ".anchor(site_url('index.php/info_futsal/update/$1'),'Update')." | ".anchor(site_url('index.php/info_futsal/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'Futsal_id');
         return $this->datatables->generate();
     }
 

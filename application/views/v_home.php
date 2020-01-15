@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             
             #footer {
-                margin height: 150px;
+                height: 150px;
                 background: black;
             }
             img{
@@ -52,7 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 text-decoration: none;
                 color: black;
                 position: absolute;
-                margin-top: -25px;
+                margin-top: -70px;
+                background: white;
+                border: 2px solid #3b45ff;
+                padding: 10px 20px 10px 20px;
+                border-radius: 25px;
+                box-shadow: 5px 5px #3b45ff;
             }
         </style>
     </head>
@@ -66,10 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <!-- Content -->
                 <div id="mapid"></div>
-                <div id="footer"></div>
                 <!-- End Content -->
-                
-            </div>
         </main>
         <!-- <script src="<?=base_url()?>assets/js/offcanvas.js"></script> -->
         <script type="text/javascript">
@@ -123,6 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var markerLayer = new L.LayerGroup();
             map.addLayer(markerLayer);
 
+            //Create Search control
             var controlSearch = new L.Control.Search({
                 position:'topleft',		
                 layer: markerLayer,

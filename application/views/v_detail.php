@@ -42,6 +42,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             width: 70px;
             position: absolute;
         }
+        td{
+            font-size: 30px;
+        }
+        table{
+            margin: 18px 0 0 18px;
+        }
     </style>
 
     <body>
@@ -57,11 +63,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?=$foto?>
             </div>
         </div>
-        <h2>Alamat : <?=$alamat?></h2>
-        <h2>Harga sewa lapangan : <?=$harga?>/Jam</h2>
-        <h2>Jumlah lapangan : <?=$jlh_lapangan?></h2>
-        <h2>No Hp : <?=$no_hp?></h2>
-
+        <table>
+            <tr>
+                <td>Address</td>
+                <td> : </td>
+                <td> <?=$alamat?> </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td> : </td>
+                <td> <?=$harga?> / hour </td>
+            </tr>
+            <tr>
+                <td>Field</td>
+                <td> : </td>
+                <td> <?=$jlh_lapangan?> </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td> : </td>
+                <td> <?=$no_hp?> </td>
+            </tr>
+        </table>
+        
         <script type="text/javascript">
             // Leaflet
             //zoom into the polygon position
