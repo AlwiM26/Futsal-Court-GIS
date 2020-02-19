@@ -21,6 +21,6 @@ Admin List
 ![Home](/assets/img/SS/tampilanlistadmin.png)
 
 Detail Admin
-![Home](/assets/img/SS/tampilandetailAdmin.png)
+![Home](/assets/img/SS/tampilandetailadmin.png)
 
 
